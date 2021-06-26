@@ -1,8 +1,10 @@
 const jwt = require("jsonwebtoken");
-const user = require ('../models/users')
+const user = require('../models/users')
+const mails = require ('../models/mails')
 const bcrypt = require('bcryptjs');
-const nodemailer = require('nodemailer');
+const gmail = require('../gmail')
 const cron = require('node-cron');
+
 
 
 exports.signup = async (req, res) => {
@@ -79,27 +81,27 @@ exports.login = (req, res) => {
 }
 
 
-const transporter = nodemailer.createTransport({
-    service: 'SendinBlue',
-    auth: {
-        user: 'ameyalizbeth@gmail.com',
-        pass: 'HJvIUcw05ROT7yh6'
-    }
-});
+exports.schedule = async (req, res, next) => {
+const { toEmail,  fromEmail, subject, body } = req.body
+const mail = await mails.create({ toEmail,  fromEmail, subject, body})
 
-exports.schedule = async(req, res, next) => {
     
-cron.schedule('* * * * *', async() => {
+cron.schedule('20 23 * * *', async() => {
   // Send e-mail
-    await transporter.sendMail({
-            to: 'ameyalizbeth@gmail.com',
-            from: 'ameya123@cet.ac.in',
-            subject: 'Signup verification',
-            html: '<h1>Please verify your email</h1>'
+    let mailOptions = {
+        to: toEmail,
+        from: fromEmail,
+        subject: subject,
+        html:  body
+
+    }
+    gmail.gmail(mailOptions)
+           
         })
         .then((res) => console.log("Successfully sent"))
         .catch((err) => console.log("Failed ", err))
-  });
+  
 
     
 }
+

@@ -36,10 +36,11 @@ exports.signup = async (req, res) => {
 exports.login = (req, res) => {
     user.find({ email: req.body.email }, null, { limit: 1 } )
         .then((user) => {
-            if (user) {
+          
+            if (user[0]) {
                 bcrypt.compare(
                     req.body.password,
-                    user.password,
+                    user[0].password,
                     (err, response) => {
                         if (response) {
                            

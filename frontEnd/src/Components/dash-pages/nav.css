@@ -2,10 +2,10 @@
     height: 100vh;
     width: 20vw;
     background: #fff;
-    border-radius: 0px 36px 36px 0px;
     display: flex;
     flex-direction: column;
-    box-shadow: 5px 5px 10px 2px rgba(161, 161, 161, 0.8);
+    box-shadow: 8px 0px 24px rgba(130, 130, 130, 0.2);
+    border-radius: 0px 32px 32px 0px;
     align-items: center;
 
 }
@@ -28,8 +28,13 @@
     display: flex;
     width: 100%;
     height: 100%;
-    color: #686868;
+    color: #828282;
     padding:10px 20px
+}
+.nav-link div{
+    font-weight: 550;
+    font-size: 24px;
+    line-height: 29px;
 }
 a:active{
     background-color: #404251;

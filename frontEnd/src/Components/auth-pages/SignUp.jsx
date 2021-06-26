@@ -128,7 +128,7 @@ if (access) {
                                 </div>
                             </div>
                             <div className="log-bt pos-1">SignUp</div>
-                            <Link to="/" className="sign-btn pos-2">Login</Link>
+                            <Link to="/login" className="sign-btn pos-2">Login</Link>
                             
                             <p
                                 style={{

@@ -56,6 +56,7 @@ if (access) {
     return(
     <div className="auth-bg">
 
+                        <div className="title-main"><span>Mail</span>Easy</div>
 
                         <form
                             className='mx-auto form-group col-10 form-bg'

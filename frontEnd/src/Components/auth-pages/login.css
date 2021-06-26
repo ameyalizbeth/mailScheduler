@@ -1,0 +1,134 @@
+.auth-bg{
+  background-color: #5078FA;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.form-bg{
+  background-color: #fff;
+  width: 400px;
+  height: 400px;
+  padding: 40px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+}
+.sign-btn{
+  
+  padding: 10px 20px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.612);
+}
+.log-bt{
+  
+  background-color: #fff;
+  padding: 10px 20px;
+  border-radius: 10px 10px 0px 0px;
+  text-decoration: none;
+  color: #5078FA;
+}
+.pos-1{
+  position: absolute;
+  top:-40px;
+  left: 120px;
+}
+.pos-2{
+  position: absolute;
+  top:-40px;
+  left: 50px;
+}
+.google-btn{
+
+  border:none;
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+  margin-top: 10px;
+  padding: 0;
+}
+
+
+
+
+.sign-a{
+  color:#fff;
+}
+
+.login{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: 100vh !important;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background: #5078FA;
+}
+
+.main-box{
+  border-color: white !important;
+  border-width: 1px;
+  border-radius: 20px !important;
+  width:400px;
+  background-color: #fff;
+  
+}
+.input-box{
+  border-radius: 5px;
+  margin-top: 10px;
+  height: 40px;
+  width: 300px;
+  border-width: 1px;
+  
+}
+
+.login h2{
+    margin-bottom: 8vh;
+    padding-top: 5vh;
+}
+
+
+.link:hover{
+  text-decoration: none;
+  background-color: white;
+}
+
+@media screen and (max-width:760px){
+  .login{
+    padding-top: 10vh;
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
+
+  .box{
+    margin-left: auto;
+    margin-right: auto;
+    height: 80vh;
+  width: 90vw;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  }
+
+  .form-control{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    margin: 0;
+    margin-bottom: 0 !important;
+   
+  }
+
+  button{
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+  }
+
+}

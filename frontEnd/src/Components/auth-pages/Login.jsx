@@ -18,7 +18,8 @@ export default function Login(){
 
     Axios.post("http://localhost:8001/user/api/login", {
         password: password,
-        email: email
+        email: email,
+        googleUser:false
     }).then((response) => {
         console.log(response);
         

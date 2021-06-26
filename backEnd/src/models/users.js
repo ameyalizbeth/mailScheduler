@@ -19,6 +19,10 @@ const user = new Schema({
         required: true,
         
     },
+    googleUser: {
+        type: Boolean,
+        required:true
+    }
       
         
     

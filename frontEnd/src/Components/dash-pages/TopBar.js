@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router,Link } from "react-router-dom";
+import ActivityModal from "./ActivityModal";
 import './topbar.css'
 
 function TopBar(){
@@ -19,13 +20,33 @@ function TopBar(){
                 
             </div>
             <div className="prof-right">
-                <button
+            <button
                     className='btn start-btn'
-                    type='submit'
+                    type='button'
+                    data-toggle='modal'
+                    data-target='#exampleModalCenter'
                     style={{marginRight:40}}>
                     Compose
                 </button>
-                <Link to="/logout" href="#">Log Out</Link>
+                <div
+                    className='modal fade'
+                    data-backdrop="false"
+                    id='exampleModalCenter'
+                    tabindex='-1'
+                    role='dialog'
+                    aria-labelledby='exampleModalCenterTitle'
+                    aria-hidden='true'
+                >
+                    <div
+                        className='modal-dialog modal-dialog-centered'
+                        role='document'
+                    >
+                        <div className='modal-content modal-main'>
+                            <ActivityModal />
+                        </div>
+                    </div>
+                </div>
+
                 <div className="dropdown">
                     <a class="prof-a dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <figure className='top-profile'></figure>

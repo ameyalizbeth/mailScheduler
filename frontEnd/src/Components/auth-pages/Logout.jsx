@@ -20,7 +20,7 @@ class Logout extends React.Component {
                         <h5 className='mt-3 mb-4 grey'>
                             You've been logged out!
                         </h5>
-                        <Link to='/' className='btn start-btn'>
+                        <Link to='/login' className='btn start-btn'>
                             Go to Login Page
                         </Link>
                     </div>

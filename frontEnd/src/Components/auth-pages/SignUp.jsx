@@ -20,7 +20,8 @@ export default function SignUp(){
     Axios.post("http://localhost:8001/user/api/signin", {
         password: password,
         email: email,
-        confirmPassword:confirmPassword
+        confirmPassword:confirmPassword, 
+        googleUser:false
     }).then((response) => {
         console.log(response);
         

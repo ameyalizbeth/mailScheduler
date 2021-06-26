@@ -8,7 +8,7 @@ function TopBar(){
             <div className="search-main ">
                 <input className='search-input form-control px-3 mb-4'
                         type='text'
-                        placeholder='Search'
+                        placeholder='Search for a mail'
                         name='search'>
                 </input>
                 <button>
@@ -23,8 +23,9 @@ function TopBar(){
                     className='btn start-btn'
                     type='submit'
                     style={{marginRight:40}}>
-                    Ask a question
+                    Compose Mail
                 </button>
+                <Link to="/logout" href="#">Log Out</Link>
                 <div className="dropdown">
                     <a class="prof-a dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <figure className='top-profile'></figure>

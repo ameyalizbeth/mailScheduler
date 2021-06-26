@@ -1,12 +1,13 @@
 const jwt = require("jsonwebtoken");
 const user = require ('../models/users')
 const bcrypt = require('bcryptjs');
-// const nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
+const cron = require('node-cron');
 
 
 exports.signup = async (req, res) => {
 
-    const { email, password, confirmPassword } = req.body
+    const { email, password, confirmPassword,googleUser } = req.body
 
     if(password != confirmPassword){
         return res.json({ status: "error", msg: "Password does not match" })
@@ -18,7 +19,7 @@ exports.signup = async (req, res) => {
     try{
 
         const npassword = await bcrypt.hash(password, 10)
-        const users = await user.create({ email, password: npassword })
+        const users = await user.create({ email, password: npassword ,googleUser})
         const username = users.email;
         const token = jwt.sign({ username }, process.env.SECRET, {expiresIn: 7200,});
            
@@ -75,4 +76,30 @@ exports.login = (req, res) => {
             }
         })
         .catch((err) => console.log(err));
+}
+
+
+const transporter = nodemailer.createTransport({
+    service: 'SendinBlue',
+    auth: {
+        user: 'ameyalizbeth@gmail.com',
+        pass: 'HJvIUcw05ROT7yh6'
+    }
+});
+
+exports.schedule = async(req, res, next) => {
+    
+cron.schedule('* * * * *', async() => {
+  // Send e-mail
+    await transporter.sendMail({
+            to: 'ameyalizbeth@gmail.com',
+            from: 'ameya123@cet.ac.in',
+            subject: 'Signup verification',
+            html: '<h1>Please verify your email</h1>'
+        })
+        .then((res) => console.log("Successfully sent"))
+        .catch((err) => console.log("Failed ", err))
+  });
+
+    
 }

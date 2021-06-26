@@ -9,7 +9,7 @@ function TopBar(){
             <div className="search-main ">
                 <input className='search-input form-control px-3 mb-4'
                         type='text'
-                        placeholder='Search'
+                        placeholder='Search for a mail'
                         name='search'>
                 </input>
                 <button>
@@ -26,7 +26,7 @@ function TopBar(){
                     data-toggle='modal'
                     data-target='#exampleModalCenter'
                     style={{marginRight:40}}>
-                    Compose
+                    Compose Mail
                 </button>
                 <div
                     className='modal fade'

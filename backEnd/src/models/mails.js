@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const validator = require('validator');
 const Schema = mongoose.Schema;
 const mail = new Schema({
+   
     toEmail: {
         type: String,
         required: true,
@@ -32,14 +33,10 @@ const mail = new Schema({
         
     },
     body: {
-        type: string,
+        type: String,
         
     },
-    sent: {
-        type: Boolean,
-        required:true
-    }
-      
+   
         
     
 

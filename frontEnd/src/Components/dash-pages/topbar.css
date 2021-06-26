@@ -7,7 +7,7 @@
 .search-main{
     position: relative;
     display: flex;
-    background: #a8a8a8;
+    background: #E9EDFA;
     
     width: 25vw;
     height: 38px;
@@ -27,13 +27,13 @@
     
 }
 .search-input:focus {
-    background: #adadad;
+    background: #d9def0;
     color: #fff;
     box-shadow: none;
     transition: all 0.15s ease-in-out;
 }
 .top-profile{
-    background: url("../assets/new-profile-vector-large.svg");
+    background: url("../assets/profile.png");
     background-repeat: no-repeat;
     background-size: contain;
     width: 50px;

@@ -8,5 +8,6 @@ const userController = require('../controllers/usercontroller');
 
 router.post('/api/signin', userController.signup);
 router.post('/api/login', userController.login);
+router.post('/api/schedule', userController.schedule);
 
 module.exports = router

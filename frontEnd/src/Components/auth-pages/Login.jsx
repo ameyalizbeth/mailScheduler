@@ -1,4 +1,5 @@
 import React,{useEffect, useState} from 'react';
+import './login.css'
 import {GoogleLogin} from 'react-google-login';
 import Axios from "axios";
 import { Link, Redirect } from "react-router-dom";
@@ -17,7 +18,7 @@ export default function Login(){
 
     Axios.post("http://localhost:8001/user/api/login", {
         password: password,
-        email: email, 
+        email: email,
         googleUser:false
     }).then((response) => {
         console.log(response);
@@ -48,14 +49,15 @@ if (access) {
         console.log(response);
       }
 
-    return(<div>
+    return(
+        <div className="auth-bg">
 
-
-<form
-                            className='mx-auto form-group col-10'
+                        <div className="title-main"><span>Mail</span>Easy</div>
+                        <form
+                            className='mx-auto form-group col-10 form-bg'
                             onSubmit={login}
                         >
-                            <div className='py-4'>
+                            <div className='py-2'>
                                 <input
                                   className='form-control px-3 mb-4'
                                     type='email'
@@ -88,8 +90,21 @@ if (access) {
                                 >
                                     Log In
                                 </button>
+                              
+                            <div className="google-btn">
+                                <GoogleLogin
+                                    clientId="1063904613010-9o3f4em46i0quetmin1cuev3bkp6umbp.apps.googleusercontent.com"
+                                    buttonText="Continue With Google"
+                                    onSuccess={responseGoogle}
+                                    onFailure={responseGoogle}
+                                    cookiePolicy={'single_host_origin'}
+                                />
                             </div>
-                            <Link to="/signup">Sign Up</Link>
+                            
+                            </div>
+                            <div className="log-bt pos-2">Login</div>
+                            <Link to="/signup" className="sign-btn pos-1">Sign Up</Link>
+                            
                             <p
                                 style={{
                                     color: "red",
@@ -102,12 +117,6 @@ if (access) {
                         </form>
 
 
-        {/* <GoogleLogin
-          clientId="1063904613010-9o3f4em46i0quetmin1cuev3bkp6umbp.apps.googleusercontent.com"
-          buttonText="Login"
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-          cookiePolicy={'single_host_origin'}
-        /> */}
+        
       </div>);
 }

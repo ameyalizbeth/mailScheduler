@@ -1,4 +1,5 @@
 import React,{useEffect, useState} from 'react';
+import './login.css'
 import {GoogleLogin} from 'react-google-login';
 import Axios from "axios";
 import { Link, Redirect } from "react-router-dom";
@@ -8,11 +9,12 @@ import { Link, Redirect } from "react-router-dom";
 export default function SignUp(){
 
   const [email, setEmail] = useState("");
+//   const [name,setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [access, setAccess] = useState();
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState([]);
 
   const register = (e) => {
     e.preventDefault();
@@ -20,10 +22,11 @@ export default function SignUp(){
     Axios.post("http://localhost:8001/user/api/signin", {
         password: password,
         email: email,
-        confirmPassword:confirmPassword, 
+        confirmPassword:confirmPassword,
         googleUser:false
     }).then((response) => {
         console.log(response);
+        setMessage(response.data);
         
         if (response.data.auth) {
             localStorage.setItem("token", response.data.token);
@@ -51,14 +54,16 @@ if (access) {
         console.log(response);
       }
 
-    return(<div>
+    return(
+    <div className="auth-bg">
 
+                        <div className="title-main"><span>Mail</span>Easy</div>
 
-<form
-                            className='mx-auto form-group col-10'
+                        <form
+                            className='mx-auto form-group col-10 form-bg'
                             onSubmit={register}
                         >
-                            <div className='py-4'>
+                            <div className='py-2 ' style={{marginTop:40}}>
                                 <input
                                   className='form-control px-3 mb-4'
                                     type='email'
@@ -69,6 +74,16 @@ if (access) {
                                     }}
                                     required
                                 ></input>
+                                {/* <input
+                                  className='form-control px-3 mb-4'
+                                    type='name'
+                                    placeholder='Full Name'
+                                    name='fullname'
+                                    onChange={(e) => {
+                                        setName(e.target.value);
+                                    }}
+                                    required
+                                ></input> */}
                                 
                                 
                                 <input
@@ -102,25 +117,32 @@ if (access) {
                                 >
                                     Create account
                                 </button>
+                                <div className="google-btn">
+                                <GoogleLogin
+                                clientId="1063904613010-9o3f4em46i0quetmin1cuev3bkp6umbp.apps.googleusercontent.com"
+                                buttonText="Signup using Google"
+                                onSuccess={responseGoogle}
+                                onFailure={responseGoogle}
+                                cookiePolicy={'single_host_origin'}
+                                />
+                                </div>
                             </div>
+                            <div className="log-bt pos-1">SignUp</div>
+                            <Link to="/" className="sign-btn pos-2">Login</Link>
+                            
                             <p
                                 style={{
                                     color: "red",
                                     fontSize: 12,
                                     textAlign: "center",
+                                    
                                 }}
                             >
-                                {message}
+                                {message.msg}
                             </p>
                         </form>
 
 
-        {/* <GoogleLogin
-          clientId="1063904613010-9o3f4em46i0quetmin1cuev3bkp6umbp.apps.googleusercontent.com"
-          buttonText="Login"
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-          cookiePolicy={'single_host_origin'}
-        /> */}
+        
       </div>);
 }

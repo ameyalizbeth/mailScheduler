@@ -23,8 +23,9 @@ function TopBar(){
                     className='btn start-btn'
                     type='submit'
                     style={{marginRight:40}}>
-                    Ask a question
+                    Compose
                 </button>
+                <Link to="/logout" href="#">Log Out</Link>
                 <div className="dropdown">
                     <a class="prof-a dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <figure className='top-profile'></figure>

@@ -85,16 +85,9 @@ exports.login = (req, res) => {
 
 exports.schedule = async (req, res, next) => {
     try {
-<<<<<<< HEAD
-        
-    const { toEmail,  fromEmail, subject, body, html, schedule, dateAndTime, count, option } = req.body
-    const mail = await mails.create({ toEmail,  fromEmail, subject, body,schedule})
-
-=======
     console.log("hi");
     const { toEmail,  fromEmail, subject, body, html, schedule, count, category, dateAndTime} = req.body
     const mail = await mails.create({ toEmail,  fromEmail, subject, body,schedule, count,category,dateAndTime})
->>>>>>> 5356174a17455b4ee083d0403ebe24e0431f9314
         toEmail.map((e) => {
              const task =  cron.schedule(schedule, async () => {
             // Send e-mail
@@ -133,9 +126,22 @@ exports.homepage = (req, res, next) => {
     })
 }
 
-exports.sendmails =async (req, res, next) => {
-    const array = await sendmails.find({ fromEmail: req.body.userEmail }).distinct('emailId');
-    console.log(array);
+exports.sendmails = async (req, res, next) => {
+    try {
+        const array = await sendmails.find({ fromEmail: req.params.userEmail }).distinct('emailId');
+    const result = []
+        await array.map(async (e) => {
+            const mail = await mails.findById(e);
+            result.push(mail)
+        });
+        return res.json({result:result})
+        
+    } catch (err)  {
+        next(err)
+    }
+    
+
+
 }
 
 

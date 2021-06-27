@@ -82,17 +82,17 @@ exports.login = (req, res) => {
 
 
 exports.schedule = async (req, res, next) => {
-const { toEmail,  fromEmail, subject, body } = req.body
+const { toEmail,  fromEmail, subject, body, html } = req.body
 const mail = await mails.create({ toEmail,  fromEmail, subject, body})
 
     
-cron.schedule('20 23 * * *', async() => {
+cron.schedule('* 0 * * *', async() => {
   // Send e-mail
     let mailOptions = {
         to: toEmail,
         from: fromEmail,
         subject: subject,
-        html:  body
+        html:  html
 
     }
     gmail.gmail(mailOptions)

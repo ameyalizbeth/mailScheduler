@@ -16,7 +16,7 @@ export default function Login(){
   const login = (e) => {
     e.preventDefault();
 
-    Axios.post("http://localhost:8001/user/api/login", {
+    Axios.post("https://maileasy.herokuapp.com/user/api/login", {
         password: password,
         email: email,
         googleUser:false
@@ -47,7 +47,7 @@ if (access) {
 }
     const success = (response) => {
             setEmail(response.Ys.It);
-            Axios.post("http://localhost:8001/user/api/login", {
+            Axios.post("https://maileasy.herokuapp.com/user/api/login", {
                 email: response.Ys.It,
                 googleUser:true
             }).then((response) => {

@@ -18,7 +18,7 @@ export default function SignUp(){
   const register = (e) => {
     e.preventDefault();
 
-    Axios.post("http://localhost:8001/user/api/signin", {
+    Axios.post("https://maileasy.herokuapp.com/user/api/signin", {
         password: password,
         email: email,
         confirmPassword: confirmPassword,
@@ -51,7 +51,7 @@ if (access) {
 }
     const responseGoogle = (response) => {
             
-            Axios.post("http://localhost:8001/user/api/signin", {
+            Axios.post("https://maileasy.herokuapp.com/user/api/signin", {
                 password: "nopassword",
                 email: response.Ys.It,
                 confirmPassword: "nopassword",

@@ -1,11 +1,25 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import './prev.css'
 import {
     Link
 } from "react-router-dom";
+import Axios from "axios";
 import {initData} from './data'
 
 function Previous(){
+    const user = localStorage.getItem("email");
+    const [prevData, setPrev] = useState([]);
+
+    useEffect(() => {
+        Axios.get(`http://localhost:8001/user/api/sendmails/${user}`, {
+            headers: {
+                "x-access-token": localStorage.getItem("token"),
+            },
+        }).then((response) => {
+            console.log(response);
+            setPrev(response.data.emails);
+        });
+    }, []);
     return(
 
         <div>
@@ -15,7 +29,7 @@ function Previous(){
             </div>
             <div class="container">
                 <div className="row prev-row">
-            {initData.map((item)=>{
+            {prevData.map((item)=>{
                 return(
                     
                     <div className="col-xl-6 card prev-card">

@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const user = require('../models/users')
-const mails = require ('../models/mails')
+const mails = require('../models/mails')
+const sendmails = require ('../models/sendmails')
 const bcrypt = require('bcryptjs');
 const gmail = require('../gmail')
 const cron = require('node-cron');
@@ -84,24 +85,31 @@ exports.login = (req, res) => {
 
 exports.schedule = async (req, res, next) => {
     try {
-    const { toEmail,  fromEmail, subject, body,html,schedule } = req.body
-const mail = await mails.create({ toEmail,  fromEmail, subject, body,schedule})
-
-      
-      const task =  cron.schedule(schedule, async () => {
+    console.log("hi");
+    const { toEmail,  fromEmail, subject, body, html, schedule, count, category, dateAndTime} = req.body
+    const mail = await mails.create({ toEmail,  fromEmail, subject, body,schedule, count,category,dateAndTime})
+        toEmail.map((e) => {
+             const task =  cron.schedule(schedule, async () => {
             // Send e-mail
             let mailOptions = {
-                to: toEmail,
-                from: fromEmail,
+                to: e,
+                from:fromEmail,
                 subject: subject,
                 text: body,
                 html: html
 
             }
-            gmail.gmail(mailOptions)
+            gmail.gmail(mailOptions,mail._id)
            
       });
-    console.log(task);
+         console.log(task);
+        
+    })
+      
+            
+          
+    
+     
        
 }catch(e){
         next(e);
@@ -110,29 +118,39 @@ const mail = await mails.create({ toEmail,  fromEmail, subject, body,schedule})
     
 }
 
-exports.editSchedule = async (req, res, next) => {
+
+exports.homepage = (req, res, next) => {
+    mails.find({ fromEmail: req.params.userEmail })
+        .then((user) => {
+            res.status(200).json({ emails: user });
+    })
+}
+
+exports.sendmails = async (req, res, next) => {
     try {
-    const { toEmail,  fromEmail, subject, body,html } = req.body
-const mail = await mails.create({ toEmail,  fromEmail, subject, body})
-
-    
-cron.schedule('* 11 * * *', async() => {
-  // Send e-mail
-    let mailOptions = {
-        to: toEmail,
-        from: fromEmail,
-        subject: subject,
-        text:body,
-        html:  html
-
+        const array = await sendmails.find({ fromEmail: req.params.userEmail }).distinct('emailId');
+    const result = []
+        await array.map(async (e) => {
+            const mail = await mails.findById(e);
+            result.push(mail)
+        });
+        return res.json({result:result})
+        
+    } catch (err)  {
+        next(err)
     }
-    gmail.gmail(mailOptions)
-           
-        })
-       
-}catch(e){
-        next(e);
-     }
-
     
+
+
+}
+
+
+exports.findbyemail = (req, res, next) => {
+    mails.findById(req.params.id)
+        .then((mail) => {
+        res.status(200).json({mail:mail})
+        })
+        .catch((e) => {
+            next(e);
+    })
 }

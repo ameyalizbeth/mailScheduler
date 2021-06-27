@@ -2,7 +2,10 @@ const mongoose = require("mongoose");
 const validator = require('validator');
 const Schema = mongoose.Schema;
 const sendmail = new Schema({
-   
+    emailId: {
+       type: Schema.Types.ObjectId,
+       ref:'mail'
+   },
     toEmail: {
         type: String,
         required: true,

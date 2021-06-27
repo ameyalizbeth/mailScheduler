@@ -1,5 +1,5 @@
 require('dotenv').config({ path: './.env' });
-const jwt = require("jsonwebtoken");
+
 const sendmail = require ('../src/models/sendmails')
 const { google } = require("googleapis")
 const nodemailer = require('nodemailer');
@@ -11,7 +11,7 @@ const REFRESH_TOKEN = process.env.REFRESH_TOKEN
 const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL)
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN })
 
-exports.gmail = async (mailOptions)=> {
+exports.gmail = async (mailOptions,id)=> {
     
 
     try {
@@ -34,7 +34,11 @@ exports.gmail = async (mailOptions)=> {
      await transporter.sendMail(mailOptions)
          .then(async(res) => {
              console.log("Successfully sent")
-             const mail = await sendmail.create({ toEmail: mailOptions.to, fromEmail: mailOptions.from, subject: mailOptions.subject, body: mailOptions.text });
+             const send = await sendmail.find({ toEmail: mailOptions.to, emailId: id });
+             if (send.length== 0) {
+                 const mail = await sendmail.create({ toEmail: mailOptions.to, fromEmail: mailOptions.from, subject: mailOptions.subject, body: mailOptions.text,emailId:id });
+             }
+             
             
          })
         .catch((err) => console.log("Failed ", err))

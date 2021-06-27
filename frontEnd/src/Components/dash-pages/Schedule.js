@@ -8,7 +8,7 @@ function Schedule(){
 
 
     useEffect(() => {
-        Axios.get(`http://localhost:8001/user/api/${user}/homepage`, {
+        Axios.get(`https://maileasy.herokuapp.com/user/api/${user}/homepage`, {
             headers: {
                 "x-access-token": localStorage.getItem("token"),
             },
@@ -22,7 +22,7 @@ function Schedule(){
        
         const token = localStorage.getItem("token");
 
-        fetch(`http://localhost:8001/user/api/delete`, {
+        fetch(`https://maileasy.herokuapp.com/user/api/delete`, {
             method: "DELETE",
             headers: {
                 'content-type':'application/json',

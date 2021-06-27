@@ -12,7 +12,6 @@ export default function Login(){
   const [password, setPassword] = useState("");
   const [access, setAccess] = useState();
   const [message, setMessage] = useState("");
-  const [googleUser, setGoogleUser] = useState(false);
 
   const login = (e) => {
     e.preventDefault();
@@ -20,7 +19,7 @@ export default function Login(){
     Axios.post("http://localhost:8001/user/api/login", {
         password: password,
         email: email,
-        googleUser:googleUser
+        googleUser:false
     }).then((response) => {
         console.log(response);
         
@@ -47,33 +46,28 @@ if (access) {
     );
 }
     const success = (response) => {
-        setEmail(response.Ys.It);
-
-        setGoogleUser(true);
-
-        Axios.post("http://localhost:8001/user/api/login", {
-        email: email,
-        googleUser:googleUser
-    }).then((response) => {
-        console.log(response);
+            setEmail(response.Ys.It);
+            Axios.post("http://localhost:8001/user/api/login", {
+                email: response.Ys.It,
+                googleUser:true
+            }).then((response) => {
+                console.log(response);
+                
+                if (response.data.auth) {
+                    localStorage.setItem("token", response.data.token);
+                    localStorage.setItem("email", response.data.userEmail);
+                    setAccess(true);
+                } else {
+                    setAccess(false);
+                    if(message!=="")
+                    setMessage(response.data);
+                }
+              
+            });
         
-        if (response.data.auth) {
-            localStorage.setItem("token", response.data.token);
-            localStorage.setItem("email", email);
-            setAccess(true);
-        } else {
-            setAccess(false);
-            if(message!=="")
-            setMessage(response.data);
-        }
-      
-    });
+        
       }
 
-    function failure(res){
-        console.log(res);
-        
-    }
     return(
         <div className="auth-bg">
 
@@ -121,7 +115,6 @@ if (access) {
                                     clientId="1063904613010-9o3f4em46i0quetmin1cuev3bkp6umbp.apps.googleusercontent.com"
                                     buttonText="Continue With Google"
                                     onSuccess={success}
-                                    onFailure={failure}
                                     cookiePolicy={'single_host_origin'}
                                 />
                             </div>

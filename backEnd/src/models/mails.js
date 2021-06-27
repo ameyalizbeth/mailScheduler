@@ -14,13 +14,8 @@ const mail = new Schema({
                     throw new Error('Email is invalid')
             }
         }
-<<<<<<< HEAD
     }],
     fromEmail:{
-=======
-    }] ,
-    fromEmail: {
->>>>>>> d1a28f78d4c86d2ab665aaf6397109bb6e0ad583
         type: String,
         required: true,
         

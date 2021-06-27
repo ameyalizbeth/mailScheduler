@@ -1,58 +1,89 @@
 .modal-main{
     background-color: #fff;
-    color: rgb(158, 158, 158);
+    color: rgb(146, 146, 146);
+
+    font-size: small;
 }
 
 .modal-heading{
     color: black;
 }
 
+.send-btn {
+    background: #5078FA;
+    color: white;
+    border-radius: 5px;
+    width: 100px;
+    height: 38px;
+    border:none;
+    min-width: max-content;
+    /* float: right; */
+    display: inline-block;
+    margin-bottom: 10px;
+    margin-left: 180px;
+    font-size: small;
+}
+
+.cancel-btn{
+    color: rgb(146, 146, 146);
+    display: inline-block;
+    font-size: small;
+}
+
 .subject{
+    width: 100%;
     margin-bottom: none!important;
     border-radius: 16px 16px 0 0;
     border-bottom: solid;
-    border-color: black;
+    border-width: 0.05rem;
+    border-color:  rgb(168, 168, 168);
+
+    font-size: small;
 }
 
 .form-control{
+    width: 100%;
     padding: none !important;
+    height: none !important;
 }
 .drop-btn{
-    background: #404251;
-    border-radius: 16px;
+    background: #9da6eb;
+    border-radius: 5px;
     border: none;
     color: #fff;
-    height: 35px;
-    font-size: 13px;
+    height: 30px;
+    font-size: 12px;
     text-align: center;
     padding: 0 15px;
-    width: 200px;
+    width: 100px;
     margin: 5px;
 }
 
 .drop-it{
-    background: #404251;
+    background: #98989b;
     padding:5px;
-    border-radius: 16px;
+    border-radius: 5px;
     margin-top: 5px;
     border:none;
+    font-size: small;
 }
 .drop-each{
     color: #fff;
     margin: 0;
 }
 .drop-each:hover{
-    background: #9740EE;
-    border-radius: 16px;
+    background: rgb(144, 144, 144);
+    border-radius: 5px;
     color: black;
 }
 .iin {
     width: 100%;
-    padding: 12px;
-    border-top: black;
+    padding: 15px;
     border-radius: 0 0 16px 16px;
     border:none;
     box-sizing: border-box;
     margin-bottom: 16px;
     resize: vertical;
+    font-size: small;
+    height: 40vh;
   }

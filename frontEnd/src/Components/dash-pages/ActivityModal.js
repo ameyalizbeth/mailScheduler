@@ -14,6 +14,7 @@ function ActivityModal(props) {
     const [day, setDay] = useState("*");
     const [week, setWeek] = useState("*");
     const [month, setMonth] = useState("*");
+    const [schedulePlan, setSchedulePlan] = useState("None");
     
     const [body, setBody] = useState("");
     // const [fromEmail, setFromEmail] = useState("");
@@ -75,7 +76,7 @@ function ActivityModal(props) {
                 html: str1,
                 schedule: str,
                 count: toEmail.split(",").length,
-                category:category,
+                category:schedulePlan,
                 dateAndTime: d.toString()
             }),
         })
@@ -108,28 +109,6 @@ function ActivityModal(props) {
                                     }} required/>
     </div>
   </div>
-                    
-                    {/* <input
-                                    className='form-control px-3 my-4'
-                                    type='text'
-                                    placeholder='to email'
-                                    name='toemail'
-                                    onChange={(e) => {
-                                        setToEmail(e.target.value);
-                                    }}
-                                    required
-                                ></input > */}
-{/* 
-                    <input
-                                    className='form-control px-3 my-4'
-                                    type='text'
-                                    placeholder='from email'
-                                    name='fromemail'
-                                    onChange={(e) => {
-                                        setFromEmail(e.target.value);
-                                    }}
-                                    required
-                                ></input > */}
                                 <input
                                     className='form-control subject px-3'
                                     type='subject'
@@ -152,23 +131,32 @@ function ActivityModal(props) {
                     ></textarea>
                 </div>
                 
-                <div className='my-2 d-flex justify-content-end align-items-center'>
+                <div className='my-2 d-flex align-items-center'>
                     
                     <div>
                         
-                        
-                        {schedule===true?<div><div className="dropdown">
+                    <h5 className='modal-heading my-3'>Schedule your mail </h5>
+                    <div class="mb-3 row">
+    <label for="inputPassword" class="col-sm-8 col-form-label">Choose your schedule plan</label>
+    <div class="col-sm-4">
+    <div className="dropdown">
                         <button className="drop-btn  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {category}
+                            {schedulePlan}
                         </button>
                         <div class="dropdown-menu drop-it " aria-labelledby="dropdownMenu2">
-                            <button className="dropdown-item drop-each" type="button" onClick={()=>{setCategory("Every Minute")}}>Every Minute</button>
-                            <button className="dropdown-item drop-each" type="button" onClick={()=>{setCategory("Every Week")}}>Every Week</button>
-                            <button className="dropdown-item drop-each" type="button" onClick={()=>{setCategory("Every Month")}}>Every Month</button>
-                            <button className="dropdown-item drop-each" type="button" onClick={()=>{setCategory("Every Year")}}>Every Year</button>
+                            <button className="dropdown-item drop-each" type="button" onClick={()=>{setSchedulePlan("Every Minute")}}>Every Minute</button>
+                            <button className="dropdown-item drop-each" type="button" onClick={()=>{setSchedulePlan("Every Week")}}>Every Week</button>
+                            <button className="dropdown-item drop-each" type="button" onClick={()=>{setSchedulePlan("Every Month")}}>Every Month</button>
+                            <button className="dropdown-item drop-each" type="button" onClick={()=>{setSchedulePlan("Every Year")}}>Every Year</button>
+                            <button className="dropdown-item drop-each" type="button" onClick={()=>{setSchedulePlan("None")}}>None</button>
                         </div>
                     </div>
-                    <Inputs input={category} second={sec} minute={min} hour={hr} day={dy} month={mnth} week={wk}/>
+    </div>
+  </div>
+                    
+
+                        {schedulePlan!=="None"?<div>
+                    <Inputs input={schedulePlan} second={sec} minute={min} hour={hr} day={dy} month={mnth} week={wk}/>
                     <button
                             className='btn start-btn col-6'
                             onClick={handlePrint}
@@ -182,34 +170,26 @@ function ActivityModal(props) {
                             type="submit"
                         >
                             Cancel
-                        </button></div>:<div>
-                        <button
-                            className='btn start-btn col-6'
-                            onClick={handleSchedule}
-                            type="submit"
-                        >
-                            Schedule
-                        </button></div>}
-                        <div>
+                        </button></div>:""}
+                        
                         <button
                             type='button'
-                            class=' btn ml-auto py-3 px-4'
+                            class=' btn cancel-btn ml-auto py-3 px-4'
                             data-dismiss='modal'
                             aria-label='Close'
-                            style={{color:"#fff"}}
                         >
                             Cancel
                         </button>
-                    </div>
-                    </div>
-                </div>
-                <button
-                            className='btn start-btn col-6'
+                        <button
+                            className='btn send-btn col-6'
                             onClick={uploadDetails}
                             type="submit"
                         >
                             Send
                         </button>
+                    </div>
+                </div>
+                
 
                 {/* <p
                     style={{

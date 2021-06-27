@@ -39,9 +39,6 @@ const mail = new Schema({
     schedule: {
         type:String
     },
-    Task: {
-        
-    }
    
         
     

@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react';
-import './schedule.css'
+import './schedule.css';
 import {initData} from './data';
 import Axios from "axios";
 

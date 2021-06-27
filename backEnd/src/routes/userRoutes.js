@@ -13,5 +13,6 @@ router.get('/api/:userEmail/homepage',isAuth, userController.homepage);
 router.get('/api/uniquemail/:id', isAuth,userController.findbyemail);
 router.get('/api/sendmails/:userEmail', isAuth, userController.sendmails);
 router.post('/api/sendone', isAuth, userController.sendnoschedule);
+router.post('/api/delete', isAuth, userController.deletesceduled);
 
 module.exports = router

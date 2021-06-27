@@ -60,6 +60,20 @@
     text-align: left;
     
 }
+.prev-tit{
+    margin-bottom: 20px;
+    margin-left: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+.view-all{
+    color: #828282;
+    font-size: 15px;
+}
+.view-all:hover{
+    text-decoration: none;
+    color: #4f4f4f;
+}
 /* Dash */
 
 .dash-main{

@@ -1,11 +1,17 @@
 import React from 'react';
 import './schedule.css'
+import {
+    Link
+} from "react-router-dom";
 import {initData} from './data'
 
 function Schedule(){
     return (
         <div>
-            <div style={{marginBottom:20}}>Scheduled Emails</div>
+            <div className="prev-tit">
+                <span style={{marginLeft:-10}}>Scheduled Mails</span>
+                <span ><Link className="view-all" to="/index/Explore">View all</Link></span>
+            </div>
             {initData.map((item)=>{
                 return(
                     <div className="sche-card">

@@ -52,7 +52,6 @@ if (access) {
         setGoogleUser(true);
 
         Axios.post("http://localhost:8001/user/api/login", {
-        password: "nopassword",
         email: email,
         googleUser:googleUser
     }).then((response) => {

@@ -17,7 +17,7 @@ function Previous(){
             },
         }).then((response) => {
             console.log(response);
-            setPrev(response.data.emails);
+            setPrev(response.data.result);
         });
     }, []);
     return(

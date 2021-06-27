@@ -12,9 +12,10 @@ export default function SignUp(){
 //   const [name,setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+const [googleUser, setGoogleUser] = useState(false);
   const [access, setAccess] = useState();
   const [message, setMessage] = useState([]);
+
 
   const register = (e) => {
     e.preventDefault();
@@ -22,8 +23,8 @@ export default function SignUp(){
     Axios.post("http://localhost:8001/user/api/signin", {
         password: password,
         email: email,
-        confirmPassword:confirmPassword,
-        googleUser:false
+        confirmPassword: confirmPassword,
+        googleUser:googleUser
     }).then((response) => {
         console.log(response);
         setMessage(response.data);
@@ -52,6 +53,32 @@ if (access) {
 }
     const responseGoogle = (response) => {
         console.log(response);
+        setEmail(response.Ys.It);
+        setPassword("nopassword");
+        setConfirmPassword("nopassword");
+        setGoogleUser(true);
+
+
+    Axios.post("http://localhost:8001/user/api/signin", {
+        password: password,
+        email: email,
+        confirmPassword: confirmPassword,
+        googleUser:googleUser
+    }).then((response) => {
+        console.log(response);
+        setMessage(response.data);
+        
+        if (response.data.auth) {
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("email", email);
+            setAccess(true);
+        } else {
+            setAccess(false);
+            if(message!=="")
+            setMessage(response.data);
+        }
+      
+    });
       }
 
     return(
@@ -122,7 +149,6 @@ if (access) {
                                 clientId="1063904613010-9o3f4em46i0quetmin1cuev3bkp6umbp.apps.googleusercontent.com"
                                 buttonText="Signup using Google"
                                 onSuccess={responseGoogle}
-                                onFailure={responseGoogle}
                                 cookiePolicy={'single_host_origin'}
                                 />
                                 </div>

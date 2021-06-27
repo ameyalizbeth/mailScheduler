@@ -61,7 +61,7 @@ function ActivityModal(props) {
         const token = localStorage.getItem("token");
         const d = new Date();
         if(schedulePlan!=="None"){
-            fetch(`http://localhost:8001/user/api/schedule`, {
+            fetch(`https://maileasy.herokuapp.com/user/api/schedule`, {
                 method: "POST",
                 headers: {
                     'content-type':'application/json',

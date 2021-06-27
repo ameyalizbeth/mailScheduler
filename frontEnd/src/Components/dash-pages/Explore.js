@@ -8,7 +8,7 @@ function Explore(){
 
 
     useEffect(() => {
-        Axios.get(`http://localhost:8001/user/api/sendmails/${user}`, {
+        Axios.get(`https://maileasy.herokuapp.com/user/api/sendmails/${user}`, {
             headers: {
                 "x-access-token": localStorage.getItem("token"),
             },

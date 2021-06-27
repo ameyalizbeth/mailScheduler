@@ -4,7 +4,6 @@ import './prev.css'
 import {
     Link
 } from "react-router-dom";
-import Axios from "axios";
 import {initData} from './data'
 
 function Previous(){

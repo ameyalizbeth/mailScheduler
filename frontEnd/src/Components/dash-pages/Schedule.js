@@ -22,7 +22,11 @@ function Schedule(){
        
         const token = localStorage.getItem("token");
 
+<<<<<<< HEAD
+        fetch(`https://maileasy.herokuapp.com/question/user`, {
+=======
         fetch(`https://maileasy.herokuapp.com/user/api/delete`, {
+>>>>>>> cb23625f92f931ce63d036a73a8a9f8f094c73af
             method: "DELETE",
             headers: {
                 'content-type':'application/json',

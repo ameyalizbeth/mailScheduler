@@ -33,7 +33,7 @@ function Previous(){
                 return(
                     
                     <div className="col-xl-6 card prev-card">
-                        <div className="card-pad">{item.name}</div>
+                        <div className="card-pad">{item.subject}</div>
                     </div>     
                 )
             })}

@@ -5,6 +5,8 @@ const sendmails = require ('../models/sendmails')
 const bcrypt = require('bcryptjs');
 const gmail = require('../gmail')
 const cron = require('node-cron');
+const TaskManager = require('../Taskmanager');
+const { customsearch } = require("googleapis/build/src/apis/customsearch");
 
 
 
@@ -40,16 +42,34 @@ exports.signup = async (req, res,next) => {
 exports.login = (req, res) => {
     user.find({ email: req.body.email }, null, { limit: 1 } )
         .then((user) => {
-          
+            console.log(user);
             if (user[0]) {
-                bcrypt.compare(
+              
+                if (user[0].googleUser) {
+                    
+                    const username = user[0].email;
+                    const token = jwt.sign({
+                        username
+                    },
+                        process.env.SECRET, {
+                        expiresIn: 7200,
+                    });
+                            res.status(200).json({
+                                auth: true,
+                                token: token,
+                                userEmail:username
+                            });
+                    
+                   }
+                else {
+                     bcrypt.compare(
                     req.body.password,
                     user[0].password,
                     (err, response) => {
                         if (response) {
                            
 
-                            const username = user.email;
+                            const username = user[0].email;
                             const token = jwt.sign({
                                     username
                                 },
@@ -71,6 +91,9 @@ exports.login = (req, res) => {
                         }
                     }
                 );
+                    
+                }
+               
             } else {
                 //    res.status(404).send({message:"No user found!!"});
                 res.json({
@@ -101,8 +124,10 @@ exports.schedule = async (req, res, next) => {
             }
             gmail.gmail(mailOptions,mail._id)
            
-      });
-         console.log(task);
+             });
+            const id = TaskManager.add(task);
+            mail.taskid = id;
+            console.log(task);
         
     })
       
@@ -128,13 +153,24 @@ exports.homepage = (req, res, next) => {
 
 exports.sendmails = async (req, res, next) => {
     try {
-        const array = await sendmails.find({ fromEmail: req.params.userEmail }).distinct('emailId');
-    const result = []
-        await array.map(async (e) => {
-            const mail = await mails.findById(e);
-            result.push(mail)
-        });
-        return res.json({result:result})
+        const array = await sendmails.find({ fromEmail: 'amruthdd2017@gmail.com' }).distinct('emailId');
+        console.log(array);
+        
+        let result = await Promise.all(
+            array.map(async (e) => {
+                return mails.findById(e).then((r) => {
+                    return r;
+                })
+                .catch((err) => {
+                    console.log(err);
+                    })
+            
+            })
+        
+        )
+        console.log(result);
+        return res.json({ result: result})
+       
         
     } catch (err)  {
         next(err)
@@ -188,5 +224,22 @@ exports.sendnoschedule =async (req, res, next) => {
 
     
 
+    
+}
+
+
+exports.deletesceduled = async (req, res, next) => {
+    try {
+        await mails.findOneAndRemove({ _id: req.body.id })
+        const task = TaskManager.get(req.body.taskid);
+        await task.destroy();
+        return res.json({status: "ok", msg: "User created Successfully"})
+
+        
+    } catch (err) {
+        next(err);
+    }
+    
+    
     
 }

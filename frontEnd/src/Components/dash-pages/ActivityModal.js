@@ -75,7 +75,7 @@ function ActivityModal(props) {
                 body:body,
                 html: str1,
                 schedule: str,
-                count: toEmail.split(",").length,
+                count:(toEmail.split(",")).length,
                 category:schedulePlan,
                 dateAndTime: d.toString()
             }),

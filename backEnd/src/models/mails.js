@@ -14,8 +14,8 @@ const mail = new Schema({
                     throw new Error('Email is invalid')
             }
         }
-    }] ,
-    fromEmail: {
+    }],
+    fromEmail:{
         type: String,
         required: true,
         
@@ -46,6 +46,9 @@ const mail = new Schema({
         type:String
     },
     count: {
+        type:Number
+    },
+    taskid: {
         type:Number
     }
         

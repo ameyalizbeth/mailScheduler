@@ -10,6 +10,8 @@
 .subject{
     margin-bottom: none!important;
     border-radius: 16px 16px 0 0;
+    border-bottom: solid;
+    border-color: black;
 }
 
 .form-control{

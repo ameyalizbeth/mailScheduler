@@ -126,9 +126,22 @@ exports.homepage = (req, res, next) => {
     })
 }
 
-exports.sendmails =async (req, res, next) => {
-    const array = await sendmails.find({ fromEmail: req.body.userEmail }).distinct('emailId');
-    console.log(array);
+exports.sendmails = async (req, res, next) => {
+    try {
+        const array = await sendmails.find({ fromEmail: req.params.userEmail }).distinct('emailId');
+    const result = []
+        await array.map(async (e) => {
+            const mail = await mails.findById(e);
+            result.push(mail)
+        });
+        return res.json({result:result})
+        
+    } catch (err)  {
+        next(err)
+    }
+    
+
+
 }
 
 

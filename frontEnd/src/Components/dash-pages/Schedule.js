@@ -17,6 +17,30 @@ function Schedule(){
             setData(response.data.emails);
         });
     }, []);
+    const deleteQuestion = (e) => {
+        
+       
+        const token = localStorage.getItem("token");
+
+        fetch(`http://localhost:8001/question/user`, {
+            method: "DELETE",
+            headers: {
+                'content-type':'application/json',
+                "x-access-token": localStorage.getItem("token"),
+            },
+            body: JSON.stringify({
+                
+            }),
+        })
+            .then((r) => {
+                if (r.status == 200) {
+                    alert("Question deleted successfully");
+                } else if (r.status == 422) alert("Invalid File format");
+                else if (r.status == 401) alert("Authentication error");
+            })
+            .catch((err) => console.log(err));
+
+    };
     return (
         <div>
             <div style={{marginBottom:20}}>Scheduled Emails</div>

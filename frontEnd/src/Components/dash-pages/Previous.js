@@ -1,6 +1,10 @@
 import React,{useState,useEffect} from 'react';
 import Axios from "axios";
 import './prev.css'
+import {
+    Link
+} from "react-router-dom";
+import Axios from "axios";
 import {initData} from './data'
 
 function Previous(){
@@ -23,7 +27,10 @@ function Previous(){
     return(
 
         <div>
-            <div style={{marginBottom:20}}>Previous Emails</div>
+            <div className="prev-tit">
+                <span>Sent Mails</span>
+                <span ><Link className="view-all" to="/index/Explore">View all</Link></span>
+            </div>
             <div class="container">
                 <div className="row prev-row">
             {data==="" || data===undefined?"":data.map((item)=>{

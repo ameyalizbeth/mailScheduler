@@ -29,7 +29,7 @@ exports.signup = async (req, res,next) => {
         const token = jwt.sign({ username }, process.env.SECRET, {expiresIn: 7200,});
            
 
-        return res.json({ status: "ok", msg: "User created Successfully", token:token, auth: true })
+        return res.json({ status: "ok", msg: "User created Successfully", token:token, auth: true, email:username })
 
     }catch(e){
         next(e);

@@ -7,7 +7,7 @@ const cron = require('node-cron');
 
 
 
-exports.signup = async (req, res) => {
+exports.signup = async (req, res,next) => {
 
     const { email, password, confirmPassword,googleUser } = req.body
 
@@ -29,7 +29,7 @@ exports.signup = async (req, res) => {
         return res.json({ status: "ok", msg: "User created Successfully", token:token, auth: true })
 
     }catch(e){
-        return res.json({ status: "error" })
+        next(e);
      }
 
 }
@@ -59,7 +59,8 @@ exports.login = (req, res) => {
                             // console.log(req.session.user);
                             res.status(200).json({
                                 auth: true,
-                                token: token
+                                token: token,
+                                usrEmail:username
                             });
                         } else {
                             res.json({
@@ -82,26 +83,56 @@ exports.login = (req, res) => {
 
 
 exports.schedule = async (req, res, next) => {
-const { toEmail,  fromEmail, subject, body } = req.body
+    try {
+    const { toEmail,  fromEmail, subject, body,html,schedule } = req.body
+const mail = await mails.create({ toEmail,  fromEmail, subject, body,schedule})
+
+      
+      const task =  cron.schedule(schedule, async () => {
+            // Send e-mail
+            let mailOptions = {
+                to: toEmail,
+                from: fromEmail,
+                subject: subject,
+                text: body,
+                html: html
+
+            }
+            gmail.gmail(mailOptions)
+           
+      });
+    console.log(task);
+       
+}catch(e){
+        next(e);
+     }
+
+    
+}
+
+exports.editSchedule = async (req, res, next) => {
+    try {
+    const { toEmail,  fromEmail, subject, body,html } = req.body
 const mail = await mails.create({ toEmail,  fromEmail, subject, body})
 
     
-cron.schedule('20 23 * * *', async() => {
+cron.schedule('* 11 * * *', async() => {
   // Send e-mail
     let mailOptions = {
         to: toEmail,
         from: fromEmail,
         subject: subject,
-        html:  body
+        text:body,
+        html:  html
 
     }
     gmail.gmail(mailOptions)
            
         })
-        .then((res) => console.log("Successfully sent"))
-        .catch((err) => console.log("Failed ", err))
-  
+       
+}catch(e){
+        next(e);
+     }
 
     
 }
-

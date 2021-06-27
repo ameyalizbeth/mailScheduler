@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require('validator');
 const Schema = mongoose.Schema;
-const mail = new Schema({
+const sendmail = new Schema({
    
     toEmail: {
         type: String,
@@ -36,12 +36,6 @@ const mail = new Schema({
         type: String,
         
     },
-    schedule: {
-        type:String
-    },
-    Task: {
-        
-    }
    
         
     
@@ -49,4 +43,4 @@ const mail = new Schema({
     
 });
 
-module.exports = mongoose.model('mail', mail);
+module.exports = mongoose.model('sendmail', sendmail);

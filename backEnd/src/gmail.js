@@ -1,9 +1,13 @@
+require('dotenv').config({ path: './.env' });
+const jwt = require("jsonwebtoken");
+const sendmail = require ('../src/models/sendmails')
 const { google } = require("googleapis")
 const nodemailer = require('nodemailer');
-const CLIENT_ID = "859391755975-u738dd46i94btl0tm8p3k1nab52633tk.apps.googleusercontent.com"
-const CLIENT_SECRET = "UIu_P3fal9fgVjo-nawytwuF"
-const REDIRECT_URL = "https://developers.google.com/oauthplayground"
-const REFRESH_TOKEN = "1//04jw6tTvPrc6eCgYIARAAGAQSNwF-L9Ird6mUlvmT98wSkzO7Qu-BHFyerNkLuFthYf_P5TN2n-VLPzvq7aPvggimRQNaj4Z-QiE"
+const CLIENT_ID = process.env.CLIENT_ID
+const CLIENT_SECRET = process.env.CLIENT_SECRET
+const REDIRECT_URL =  process.env.REDIRECT_URL
+const REFRESH_TOKEN = process.env.REFRESH_TOKEN
+
 const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL)
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN })
 
@@ -11,7 +15,7 @@ exports.gmail = async (mailOptions)=> {
     
 
     try {
-        
+    
     const acessToken = await oAuth2Client.getAccessToken()
     const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -28,7 +32,11 @@ exports.gmail = async (mailOptions)=> {
     });
         
      await transporter.sendMail(mailOptions)
-         .then((res) => console.log("Successfully sent"))
+         .then(async(res) => {
+             console.log("Successfully sent")
+             const mail = await sendmail.create({ toEmail: mailOptions.to, fromEmail: mailOptions.from, subject: mailOptions.subject, body: mailOptions.text });
+            
+         })
         .catch((err) => console.log("Failed ", err))
     
     } catch (err) {

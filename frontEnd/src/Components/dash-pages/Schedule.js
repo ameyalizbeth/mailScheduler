@@ -1,15 +1,11 @@
-
-import React,{useEffect,useState} from 'react';
-import './schedule.css'
-import {
-    Link
-} from "react-router-dom";
-import {initData} from './data'
+import React,{useState, useEffect} from 'react';
+import './schedule.css';
 import Axios from "axios";
 
 function Schedule(){
     const user = localStorage.getItem("email");
-    const [schedData, setSched] = useState([]);
+    const [data, setData] = useState("");
+
 
     useEffect(() => {
         Axios.get(`http://localhost:8001/user/api/${user}/homepage`, {
@@ -18,7 +14,7 @@ function Schedule(){
             },
         }).then((response) => {
             console.log(response);
-            setSched(response.data.emails);
+            setData(response.data.emails);
         });
     }, []);
     const deleteQuestion = (e) => {
@@ -47,15 +43,14 @@ function Schedule(){
     };
     return (
         <div>
-            <div className="prev-tit">
-                <span style={{marginLeft:-10}}>Scheduled Mails</span>
-                <span ><Link className="view-all" to="/index/Explore">View all</Link></span>
-            </div>
-            {!schedData?"":schedData.map((item)=>{
+            <div style={{marginBottom:20}}>Scheduled Emails</div>
+
+            {data==="" || data===undefined?"":data.map((item)=>{
                 return(
                     <div className="sche-card">
                         <div>
                             <div className="mail-desc">{item.subject}</div>
+<<<<<<< HEAD
                             <div className="sche-time">Time | Date</div>
                             <button className="dlt-btn" onClick={deleteQuestion(item.taskid)}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -63,6 +58,10 @@ function Schedule(){
   <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
 </svg>
                             </button>
+=======
+                <div className="sche-time">{item.dateAndTime===undefined?"":(item.dateAndTime.split(" "))[2]} {item.dateAndTime===undefined?"":(item.dateAndTime.split(" "))[1]} {item.dateAndTime===undefined?"":(item.dateAndTime.split(" "))[0]} | {item.dateAndTime===undefined?"":(item.dateAndTime.split(" "))[4]} | {item.category} | Audience:{item.toEmail.length}</div>
+                        
+>>>>>>> 4b3e2d8e8486a02859b40ec4e4ac8638d2da532b
                         </div>
                     </div>
                 )

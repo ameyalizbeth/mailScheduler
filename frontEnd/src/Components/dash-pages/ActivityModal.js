@@ -207,7 +207,7 @@ function ActivityModal(props) {
                 "x-access-token": localStorage.getItem("token"),
             },
             body: JSON.stringify({
-                toEmail:toEmail,
+                toEmail:toEmail.split(","),
                 fromEmail:fromEmail,
                 subject:subject,
                 body:body,
@@ -243,18 +243,7 @@ function ActivityModal(props) {
                     
                 </div> */}
                 <div class='form-group'>
-                    {/* <div className="dropdown">
-                        <button className="drop-btn  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {category}
-                        </button>
-                        <div class="dropdown-menu drop-it " aria-labelledby="dropdownMenu2">
-                            <button className="dropdown-item drop-each" type="button" onClick={()=>{setCategory("Entertainment")}}>Entertainment</button>
-                            <button className="dropdown-item drop-each" type="button" onClick={()=>{setCategory("News & Events")}}>News and Events</button>
-                            <button className="dropdown-item drop-each" type="button" onClick={()=>{setCategory("Arts & Sports")}}>Arts and Sports</button>
-                            <button className="dropdown-item drop-each" type="button" onClick={()=>{setCategory("Education & Reference")}}>Education and Reference</button>
-                            <button className="dropdown-item drop-each" type="button" onClick={()=>{setCategory("Society & Lifestyle")}}>Society and Lifestyle</button>
-                        </div>
-                    </div> */}
+                    
                     <input
                                     className='form-control px-3 my-4'
                                     type='text'

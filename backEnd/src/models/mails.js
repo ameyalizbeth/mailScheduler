@@ -47,6 +47,9 @@ const mail = new Schema({
     },
     count: {
         type:Number
+    },
+    taskid: {
+        type:Number
     }
         
     

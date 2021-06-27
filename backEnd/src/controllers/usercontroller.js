@@ -230,10 +230,11 @@ exports.sendnoschedule =async (req, res, next) => {
 
 exports.deletesceduled = async (req, res, next) => {
     try {
-        await mails.findOneAndRemove({ _id: req.body.id })
+       
         const task = TaskManager.get(req.body.taskid);
         await task.destroy();
-        return res.json({status: "ok", msg: "User created Successfully"})
+       
+        return res.status(200).json({status: "ok", msg: "schedule cancelled"})
 
         
     } catch (err) {

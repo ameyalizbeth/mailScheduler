@@ -14,8 +14,8 @@ const mail = new Schema({
                     throw new Error('Email is invalid')
             }
         }
-    }] ,
-    fromEmail: {
+    }],
+    fromEmail:{
         type: String,
         required: true,
         

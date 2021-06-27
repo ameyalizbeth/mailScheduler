@@ -40,16 +40,34 @@ exports.signup = async (req, res,next) => {
 exports.login = (req, res) => {
     user.find({ email: req.body.email }, null, { limit: 1 } )
         .then((user) => {
-          
+           
             if (user[0]) {
-                bcrypt.compare(
+
+                if (user[0].googleUser) {
+                    
+                    const username = user[0].email;
+                    const token = jwt.sign({
+                        username
+                    },
+                        process.env.SECRET, {
+                        expiresIn: 7200,
+                    });
+                            res.status(200).json({
+                                auth: true,
+                                token: token,
+                                userEmail:username
+                            });
+                    
+                   }
+                else {
+                     bcrypt.compare(
                     req.body.password,
                     user[0].password,
                     (err, response) => {
                         if (response) {
                            
 
-                            const username = user.email;
+                            const username = user[0].email;
                             const token = jwt.sign({
                                     username
                                 },
@@ -71,6 +89,9 @@ exports.login = (req, res) => {
                         }
                     }
                 );
+                    
+                }
+               
             } else {
                 //    res.status(404).send({message:"No user found!!"});
                 res.json({
@@ -85,7 +106,7 @@ exports.login = (req, res) => {
 
 exports.schedule = async (req, res, next) => {
     try {
-    console.log("hi");
+   
     const { toEmail,  fromEmail, subject, body, html, schedule, count, category, dateAndTime} = req.body
     const mail = await mails.create({ toEmail,  fromEmail, subject, body,schedule, count,category,dateAndTime})
         toEmail.map((e) => {
@@ -153,4 +174,40 @@ exports.findbyemail = (req, res, next) => {
         .catch((e) => {
             next(e);
     })
+}
+
+exports.sendnoschedule =async (req, res, next) => {
+    try {
+   
+    const { toEmail,  fromEmail, subject, body, html, schedule, count, category, dateAndTime} = req.body
+    const mail = await mails.create({ toEmail,  fromEmail, subject, body,schedule, count,category,dateAndTime})
+        toEmail.map((e) => {
+            
+            // Send e-mail
+            let mailOptions = {
+                to: e,
+                from:fromEmail,
+                subject: subject,
+                text: body,
+                html: html
+
+            }
+            gmail.gmail(mailOptions,mail._id)
+     
+        
+        
+    })
+      
+            
+          
+    
+     
+       
+}catch(e){
+        next(e);
+     }
+
+    
+
+    
 }

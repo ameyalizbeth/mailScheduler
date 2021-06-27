@@ -91,7 +91,7 @@ function ActivityModal(props) {
         }
         
             else{
-                fetch(`http://localhost:8001/user/api/sendone`, {
+                fetch(`https://maileasy.herokuapp.com/user/api/sendone`, {
                     method: "POST",
                     headers: {
                         'content-type':'application/json',

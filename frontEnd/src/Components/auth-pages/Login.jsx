@@ -47,8 +47,27 @@ if (access) {
     );
 }
     const success = (response) => {
-        console.log(response);
+        setEmail(response.Ys.It);
+
         setGoogleUser(true);
+
+        Axios.post("http://localhost:8001/user/api/login", {
+        email: email,
+        googleUser:googleUser
+    }).then((response) => {
+        console.log(response);
+        
+        if (response.data.auth) {
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("email", email);
+            setAccess(true);
+        } else {
+            setAccess(false);
+            if(message!=="")
+            setMessage(response.data);
+        }
+      
+    });
       }
 
     function failure(res){

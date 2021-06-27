@@ -126,8 +126,9 @@ exports.homepage = (req, res, next) => {
     })
 }
 
-exports.sendmails = (req, res, next) => {
-    sendmails.find({fromEmail:req.body.userEmail})
+exports.sendmails =async (req, res, next) => {
+    const array = await sendmails.find({ fromEmail: req.body.userEmail }).distinct('emailId');
+    console.log(array);
 }
 
 

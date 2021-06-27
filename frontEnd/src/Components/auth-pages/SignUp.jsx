@@ -8,15 +8,13 @@ import { Link, Redirect } from "react-router-dom";
 
 export default function SignUp(){
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(null);
 //   const [name,setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-const [googleUser, setGoogleUser] = useState(false);
   const [access, setAccess] = useState();
   const [message, setMessage] = useState([]);
-
-
+  const [status, setStatus] = useState();
   const register = (e) => {
     e.preventDefault();
 
@@ -24,7 +22,7 @@ const [googleUser, setGoogleUser] = useState(false);
         password: password,
         email: email,
         confirmPassword: confirmPassword,
-        googleUser:googleUser
+        googleUser:false
     }).then((response) => {
         console.log(response);
         setMessage(response.data);
@@ -52,33 +50,34 @@ if (access) {
     );
 }
     const responseGoogle = (response) => {
-        console.log(response);
         setEmail(response.Ys.It);
-        setPassword("nopassword");
-        setConfirmPassword("nopassword");
-        setGoogleUser(true);
-
-
-    Axios.post("http://localhost:8001/user/api/signin", {
-        password: password,
-        email: email,
-        confirmPassword: confirmPassword,
-        googleUser:googleUser
-    }).then((response) => {
-        console.log(response);
-        setMessage(response.data);
+            
+            Axios.post("http://localhost:8001/user/api/signin", {
+                password: "nopassword",
+                email: response.Ys.It,
+                confirmPassword: "nopassword",
+                googleUser:true
+            }).then((response) => {
+                console.log(response);
+                setMessage(response.data);
+                setStatus(response.data.status);
+                if (response.data.auth) {
+                    localStorage.setItem("token", response.data.token);
+                    localStorage.setItem("email", email);
+                    setAccess(true);
+                } else {
+                    setAccess(false);
+                    if(message!=="")
+                    setMessage(response.data);
+                    if(status===500)
+                    alert("Already registered")
+                }
+              
+            });
         
-        if (response.data.auth) {
-            localStorage.setItem("token", response.data.token);
-            localStorage.setItem("email", email);
-            setAccess(true);
-        } else {
-            setAccess(false);
-            if(message!=="")
-            setMessage(response.data);
-        }
-      
-    });
+        
+            
+    
       }
 
     return(

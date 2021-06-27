@@ -81,10 +81,10 @@ function ActivityModal(props) {
             }),
         })
             .then((r) => {
-                if (r.status == 200) {
-                    console.log(toEmail.split(','));
-                    
-                    alert("Question added successfully");
+                console.log(r);
+                
+                if (r.status == 200) {                    
+                    alert("Mail send successfully");
                 } else if (r.status == 422) alert("Invalid File format");
                 else if (r.status == 401) alert("Authentication error");
             })

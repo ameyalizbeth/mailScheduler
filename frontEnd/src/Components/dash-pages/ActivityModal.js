@@ -195,7 +195,7 @@ function ActivityModal(props) {
     // }
 
     const uploadDetails = (e) => {
-        
+        const d = new Date();
         const str1 = "<h1>"+body+"</h1>";
         const str = second.concat(" ",minute," ",hour," ",day," ", month," ", week);
         const token = localStorage.getItem("token");
@@ -207,14 +207,16 @@ function ActivityModal(props) {
                 "x-access-token": localStorage.getItem("token"),
             },
             body: JSON.stringify({
-                toEmail:toEmail.split(','),
+                toEmail:toEmail.split(","),
                 fromEmail:fromEmail,
                 subject:subject,
                 body:body,
                 html: str1,
                 schedule: str,
-                count: toEmail.split(',').length(),
+                count: toEmail.length,
+                dateAndTime: d.toString(),
                 category:category
+               
             }),
         })
             .then((r) => {

@@ -153,7 +153,7 @@ exports.homepage = (req, res, next) => {
 
 exports.sendmails = async (req, res, next) => {
     try {
-        const array = await sendmails.find({ fromEmail: 'amruthdd2017@gmail.com' }).distinct('emailId');
+        const array = await sendmails.find({ fromEmail: req.params.userEmail }).distinct('emailId');
         console.log(array);
         
         let result = await Promise.all(

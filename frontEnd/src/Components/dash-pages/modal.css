@@ -1,15 +1,19 @@
 .modal-main{
-    background-color: #2B2C3E;
-    color: #ffff;
+    background-color: #fff;
+    color: rgb(158, 158, 158);
 }
-.qst-rules{
-    height: 100px;
-    background-color: #404251;
-    border-radius: 16px;
-    margin-bottom: 15px;
-    padding-top: 15px;
-    color: #f1f1f1;
-    font-size: 12px;
+
+.modal-heading{
+    color: black;
+}
+
+.subject{
+    margin-bottom: none!important;
+    border-radius: 16px 16px 0 0;
+}
+
+.form-control{
+    padding: none !important;
 }
 .drop-btn{
     background: #404251;
@@ -43,10 +47,10 @@
 .iin {
     width: 100%;
     padding: 12px;
-    border-radius: 16px;
+    border-top: black;
+    border-radius: 0 0 16px 16px;
     border:none;
     box-sizing: border-box;
-    margin-top: 6px;
     margin-bottom: 16px;
     resize: vertical;
   }

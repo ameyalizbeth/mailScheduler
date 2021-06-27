@@ -85,10 +85,16 @@ exports.login = (req, res) => {
 
 exports.schedule = async (req, res, next) => {
     try {
+<<<<<<< HEAD
         
     const { toEmail,  fromEmail, subject, body, html, schedule, dateAndTime, count, option } = req.body
     const mail = await mails.create({ toEmail,  fromEmail, subject, body,schedule})
 
+=======
+    console.log("hi");
+    const { toEmail,  fromEmail, subject, body, html, schedule, count, category, dateAndTime} = req.body
+    const mail = await mails.create({ toEmail,  fromEmail, subject, body,schedule, count,category,dateAndTime})
+>>>>>>> 5356174a17455b4ee083d0403ebe24e0431f9314
         toEmail.map((e) => {
              const task =  cron.schedule(schedule, async () => {
             // Send e-mail
@@ -103,9 +109,13 @@ exports.schedule = async (req, res, next) => {
             gmail.gmail(mailOptions,mail._id)
            
       });
-    console.log(task);
+         console.log(task);
+        
+    })
+      
+            
           
-      })
+    
      
        
 }catch(e){

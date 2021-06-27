@@ -35,7 +35,7 @@ exports.gmail = async (mailOptions,id)=> {
          .then(async(res) => {
              console.log("Successfully sent")
              const send = await sendmail.find({ toEmail: mailOptions.to, emailId: id });
-             if (send.length() == 0) {
+             if (send.length== 0) {
                  const mail = await sendmail.create({ toEmail: mailOptions.to, fromEmail: mailOptions.from, subject: mailOptions.subject, body: mailOptions.text,emailId:id });
              }
              

@@ -14,8 +14,13 @@ const mail = new Schema({
                     throw new Error('Email is invalid')
             }
         }
+<<<<<<< HEAD
     }] ,
     fromEmail: {
+=======
+    }],
+    fromEmail:{
+>>>>>>> 5356174a17455b4ee083d0403ebe24e0431f9314
         type: String,
         required: true,
         
@@ -44,8 +49,10 @@ const mail = new Schema({
     },
     category: {
         type:String
+    },
+    count: {
+        type:Number
     }
-   
         
     
 

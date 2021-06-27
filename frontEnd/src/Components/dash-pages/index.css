@@ -7,17 +7,22 @@
 }
 .ind-top { 
     grid-area: header;
-    /* background-color: violet; */
+    background-color: #fff;
     width: 80vw;
-    padding:30px
+    padding:30px;
+    position: fixed;
+    z-index: 100;
+    margin-left: 20%;
     
  }
 .ind-nav { 
+  position: fixed;
     grid-area: menu;
     height: 100vh;
     width: 20vw;
     /* background-color: tomato; */
     border-radius: 0px 36px 36px 0px;
+    z-index: 200;
 }
 .ind-comp { 
     grid-area: main;

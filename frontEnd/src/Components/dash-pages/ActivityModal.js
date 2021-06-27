@@ -53,8 +53,6 @@ function ActivityModal(props) {
         const str = second.concat(" ",minute," ",hour," ",day," ", month," ", week);
         console.log(str);
         console.log(toEmail.split(","));
-        
-        
     }
 
     const uploadDetails = (e) => {
@@ -62,34 +60,67 @@ function ActivityModal(props) {
         const str = second.concat(" ",minute," ",hour," ",day," ", month," ", week);
         const token = localStorage.getItem("token");
         const d = new Date();
-        fetch(`http://localhost:8001/user/api/schedule`, {
-            method: "POST",
-            headers: {
-                'content-type':'application/json',
-                "x-access-token": localStorage.getItem("token"),
-            },
-            body: JSON.stringify({
-                toEmail:toEmail.split(","),
-                fromEmail:localStorage.getItem("email"),
-                subject:subject,
-                body:body,
-                html: str1,
-                schedule: str,
-                count:(toEmail.split(",")).length,
-                category:schedulePlan,
-                dateAndTime: d.toString()
-            }),
-        })
-            .then((r) => {
-                console.log(r);
-                
-                if (r.status == 200) {                    
-                    alert("Mail send successfully");
-                } else if (r.status == 422) alert("Invalid File format");
-                else if (r.status == 401) alert("Authentication error");
+        if(schedulePlan!=="None"){
+            fetch(`http://localhost:8001/user/api/schedule`, {
+                method: "POST",
+                headers: {
+                    'content-type':'application/json',
+                    "x-access-token": localStorage.getItem("token"),
+                },
+                body: JSON.stringify({
+                    toEmail:toEmail.split(","),
+                    fromEmail:localStorage.getItem("email"),
+                    subject:subject,
+                    body:body,
+                    html: str1,
+                    schedule: str,
+                    count:(toEmail.split(",")).length,
+                    category:schedulePlan,
+                    dateAndTime: d.toString()
+                }),
             })
-            .catch((err) => console.log(err));
-
+                .then((r) => {
+                    console.log(r);
+                    
+                    if (r.status == 200) {                    
+                        alert("Mail send successfully");
+                    } else if (r.status == 422) alert("Invalid File format");
+                    else if (r.status == 401) alert("Authentication error");
+                })
+                .catch((err) => console.log(err));
+        }
+        
+            else{
+                fetch(`http://localhost:8001/user/api/sendone`, {
+                    method: "POST",
+                    headers: {
+                        'content-type':'application/json',
+                        "x-access-token": localStorage.getItem("token"),
+                    },
+                    body: JSON.stringify({
+                        toEmail:toEmail.split(","),
+                        fromEmail:localStorage.getItem("email"),
+                        subject:subject,
+                        body:body,
+                        html: str1,
+                        schedule: str,
+                        count:(toEmail.split(",")).length,
+                        category:schedulePlan,
+                        dateAndTime: d.toString()
+                    }),
+                })
+                    .then((r) => {
+                        console.log(r);
+                        
+                        if (r.status == 200) {                    
+                            alert("Mail send successfully");
+                        } else if (r.status == 422) alert("Invalid File format");
+                        else if (r.status == 401) alert("Authentication error");
+                    })
+                    .catch((err) => console.log(err));
+        
+            }
+            
     };
     if (!token) {
         return <Redirect to='/login' />;

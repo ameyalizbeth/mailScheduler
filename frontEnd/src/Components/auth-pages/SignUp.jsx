@@ -50,7 +50,6 @@ if (access) {
     );
 }
     const responseGoogle = (response) => {
-        setEmail(response.Ys.It);
             
             Axios.post("http://localhost:8001/user/api/signin", {
                 password: "nopassword",
@@ -63,7 +62,7 @@ if (access) {
                 setStatus(response.data.status);
                 if (response.data.auth) {
                     localStorage.setItem("token", response.data.token);
-                    localStorage.setItem("email", email);
+                    localStorage.setItem("email", response.data.email);
                     setAccess(true);
                 } else {
                     setAccess(false);

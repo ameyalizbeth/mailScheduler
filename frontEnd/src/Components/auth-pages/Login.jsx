@@ -55,7 +55,7 @@ if (access) {
                 
                 if (response.data.auth) {
                     localStorage.setItem("token", response.data.token);
-                    localStorage.setItem("email", email);
+                    localStorage.setItem("email", response.data.userEmail);
                     setAccess(true);
                 } else {
                     setAccess(false);

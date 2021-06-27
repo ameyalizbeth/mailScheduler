@@ -1,150 +1,10 @@
 import React, { useState, useEffect } from "react";
 import './modal.css'
 import { Link, Redirect } from "react-router-dom";
+import Inputs from './Input';
 
 
 
-
-function Inputs(props){
-    
-    return (<div>
-        {props.input==="Every Minute"?<div><input
-                                    className='form-control px-3 my-4'
-                                    type='subject'
-                                    placeholder='Second'
-                                    name='fromemail'
-                                    onChange={(e) => {
-                                        props.second(e.target.value);
-                                    }}
-                                    required
-                                ></input ></div>:props.input==="Every Week"?<div><input
-                className='form-control px-3 my-4'
-                type='subject'
-                placeholder='Second'
-                name='fromemail'
-                onChange={(e) => {
-                    props.second(e.target.value);
-                }}
-                required
-            ></input ><input
-            className='form-control px-3 my-4'
-            type='subject'
-            placeholder='Minute'
-            name='fromemail'
-            onChange={(e) => {
-                props.minute(e.target.value);
-            }}
-            required
-        ></input >
-        <input
-            className='form-control px-3 my-4'
-            type='subject'
-            placeholder='Hour'
-            name='fromemail'
-            onChange={(e) => {
-                props.hour(e.target.value);
-            }}
-            required
-        ></input >
-        <input
-                className='form-control px-3 my-4'
-                type='subject'
-                placeholder='Day'
-                name='fromemail'
-                onChange={(e) => {
-                    props.week(e.target.value);
-                }}
-                required
-            ></input ></div>:props.input==="Every Month"?<div><input
-            className='form-control px-3 my-4'
-            type='subject'
-            placeholder='Second'
-            name='fromemail'
-            onChange={(e) => {
-                props.second(e.target.value);
-            }}
-            required
-        ></input ><input
-        className='form-control px-3 my-4'
-        type='subject'
-        placeholder='Minute'
-        name='fromemail'
-        onChange={(e) => {
-            props.minute(e.target.value);
-        }}
-        required
-    ></input >
-    <input
-        className='form-control px-3 my-4'
-        type='subject'
-        placeholder='Hour'
-        name='fromemail'
-        onChange={(e) => {
-            props.hour(e.target.value);
-        }}
-        required
-    ></input >
-    <input
-            className='form-control px-3 my-4'
-            type='subject'
-            placeholder='Day'
-            name='fromemail'
-            onChange={(e) => {
-                props.day(e.target.value);
-            }}
-            required
-        ></input >
-        </div>:props.input==="Every Year"?<div><input
-            className='form-control px-3 my-4'
-            type='subject'
-            placeholder='Second'
-            name='fromemail'
-            onChange={(e) => {
-                props.second(e.target.value);
-            }}
-            required
-        ></input ><input
-        className='form-control px-3 my-4'
-        type='subject'
-        placeholder='Minute'
-        name='fromemail'
-        onChange={(e) => {
-            props.minute(e.target.value);
-        }}
-        required
-    ></input >
-    <input
-        className='form-control px-3 my-4'
-        type='subject'
-        placeholder='Hour'
-        name='fromemail'
-        onChange={(e) => {
-            props.hour(e.target.value);
-        }}
-        required
-    ></input >
-    <input
-            className='form-control px-3 my-4'
-            type='subject'
-            placeholder='Day'
-            name='fromemail'
-            onChange={(e) => {
-                props.day(e.target.value);
-            }}
-            required
-        ></input >
-        <input
-            className='form-control px-3 my-4'
-            type='subject'
-            placeholder='Month'
-            name='fromemail'
-            onChange={(e) => {
-                props.month(e.target.value);
-            }}
-            required
-        ></input ></div>:""}
-    </div>)
-}
 
 function ActivityModal(props) {
 
@@ -156,7 +16,7 @@ function ActivityModal(props) {
     const [month, setMonth] = useState("*");
     
     const [body, setBody] = useState("");
-    const [fromEmail, setFromEmail] = useState("");
+    // const [fromEmail, setFromEmail] = useState("");
     const [toEmail, setToEmail] = useState("");
     const [subject, setSubject] = useState("");
     const [schedule, setSchedule] = useState(false);
@@ -188,18 +48,20 @@ function ActivityModal(props) {
         setWeek(val);
     }
 
-    // function handlePrint(){
-    //     const str = second.concat(" ",minute," ",hour," ",day," ", month," ", week);
-    //     console.log(str);
+    function handlePrint(){
+        const str = second.concat(" ",minute," ",hour," ",day," ", month," ", week);
+        console.log(str);
+        console.log(toEmail.split(","));
         
-    // }
+        
+    }
 
     const uploadDetails = (e) => {
         
         const str1 = "<h1>"+body+"</h1>";
         const str = second.concat(" ",minute," ",hour," ",day," ", month," ", week);
         const token = localStorage.getItem("token");
-
+        const d = new Date();
         fetch(`http://localhost:8001/user/api/schedule`, {
             method: "POST",
             headers: {
@@ -208,15 +70,20 @@ function ActivityModal(props) {
             },
             body: JSON.stringify({
                 toEmail:toEmail.split(","),
-                fromEmail:fromEmail,
+                fromEmail:localStorage.getItem("email"),
                 subject:subject,
                 body:body,
                 html: str1,
-                schedule: str
+                schedule: str,
+                count: toEmail.split(",").length,
+                category:category,
+                dateAndTime: d.toString()
             }),
         })
             .then((r) => {
                 if (r.status == 200) {
+                    console.log(toEmail.split(','));
+                    
                     alert("Question added successfully");
                 } else if (r.status == 422) alert("Invalid File format");
                 else if (r.status == 401) alert("Authentication error");
@@ -230,21 +97,20 @@ function ActivityModal(props) {
 
     return (
         <div className=' mx-5 my-3'>
-            <h5 className=' my-3'>Compose your mail </h5>
+            <h5 className='modal-heading my-3'>Compose your mail </h5>
             <form className='form-group'>
-                {/* <div class='form-group'>
-                    <div className="qst-rules">
-                        <ul>
-                            <li>Make sure your question has not been asked already</li>
-                            <li>Keep your question short and to the point</li>
-                            <li>Make sure your question does not contain anything offensive or immoral</li>
-                        </ul>
-                    </div>
-                    
-                </div> */}
+                
                 <div class='form-group'>
+                <div class="mb-3 row">
+    <label for="inputPassword" class="col-sm-2 col-form-label">To</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" onChange={(e) => {
+                                        setToEmail(e.target.value);
+                                    }} required/>
+    </div>
+  </div>
                     
-                    <input
+                    {/* <input
                                     className='form-control px-3 my-4'
                                     type='text'
                                     placeholder='to email'
@@ -253,8 +119,8 @@ function ActivityModal(props) {
                                         setToEmail(e.target.value);
                                     }}
                                     required
-                                ></input >
-
+                                ></input > */}
+{/* 
                     <input
                                     className='form-control px-3 my-4'
                                     type='text'
@@ -264,19 +130,19 @@ function ActivityModal(props) {
                                         setFromEmail(e.target.value);
                                     }}
                                     required
-                                ></input >
+                                ></input > */}
                                 <input
-                                    className='form-control px-3 my-4'
+                                    className='form-control subject px-3'
                                     type='subject'
                                     placeholder='Subject'
-                                    name='fromemail'
+                                    name='subject'
                                     onChange={(e) => {
                                         setSubject(e.target.value);
                                     }}
                                     required
                                 ></input >
                     <textarea
-                        className='form-control iin my-3'
+                        className='form-control iin'
                         type='text'
                         placeholder='Write the body'
                         name='question'
@@ -304,13 +170,13 @@ function ActivityModal(props) {
                         </div>
                     </div>
                     <Inputs input={category} second={sec} minute={min} hour={hr} day={dy} month={mnth} week={wk}/>
-                    {/* <button
+                    <button
                             className='btn start-btn col-6'
                             onClick={handlePrint}
                             type="submit"
                         >
                             Print
-                        </button> */}
+                        </button>
                     <button
                             className='btn start-btn col-6'
                             onClick={handleSchedule}

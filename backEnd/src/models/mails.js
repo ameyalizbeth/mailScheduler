@@ -3,7 +3,7 @@ const validator = require('validator');
 const Schema = mongoose.Schema;
 const mail = new Schema({
    
-    toEmail: {
+    toEmail:[{
         type: String,
         required: true,
         
@@ -14,7 +14,7 @@ const mail = new Schema({
                     throw new Error('Email is invalid')
             }
         }
-    },
+    }] ,
     fromEmail: {
         type: String,
         required: true,
@@ -39,6 +39,12 @@ const mail = new Schema({
     schedule: {
         type:String
     },
+    dateAndTime: {
+        type:String
+    },
+    category: {
+        type:String
+    }
    
         
     

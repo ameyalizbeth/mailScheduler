@@ -15,7 +15,7 @@ const mail = new Schema({
             }
         }
     },
-    fromEmail: {
+    fromEmail:[ {
         type: String,
         required: true,
         
@@ -26,7 +26,7 @@ const mail = new Schema({
                     throw new Error('Email is invalid')
             }
         }
-    },
+    }],
     subject: {
         type: String,
        
@@ -39,6 +39,12 @@ const mail = new Schema({
     schedule: {
         type:String
     },
+    dateAndTime: {
+        type:String
+    },
+    category: {
+        type:String
+    }
    
         
     

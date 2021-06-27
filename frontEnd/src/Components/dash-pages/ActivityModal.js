@@ -207,12 +207,14 @@ function ActivityModal(props) {
                 "x-access-token": localStorage.getItem("token"),
             },
             body: JSON.stringify({
-                toEmail:toEmail,
+                toEmail:toEmail.split(','),
                 fromEmail:fromEmail,
                 subject:subject,
                 body:body,
                 html: str1,
-                schedule: str
+                schedule: str,
+                count: toEmail.split(',').length(),
+                category:category
             }),
         })
             .then((r) => {

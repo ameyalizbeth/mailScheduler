@@ -7,7 +7,7 @@ function Schedule(){
     const user = localStorage.getItem("email");
 
     useEffect(() => {
-        Axios.get(`http://localhost:8001/user/api/sendmails/${user}`, {
+        Axios.get(`http://localhost:8001/user/api/${user}/homepage`, {
             headers: {
                 "x-access-token": localStorage.getItem("token"),
             },

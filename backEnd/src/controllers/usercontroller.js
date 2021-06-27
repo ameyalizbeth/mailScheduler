@@ -40,9 +40,9 @@ exports.signup = async (req, res,next) => {
 exports.login = (req, res) => {
     user.find({ email: req.body.email }, null, { limit: 1 } )
         .then((user) => {
-           
+            console.log(user);
             if (user[0]) {
-
+              
                 if (user[0].googleUser) {
                     
                     const username = user[0].email;
@@ -149,13 +149,24 @@ exports.homepage = (req, res, next) => {
 
 exports.sendmails = async (req, res, next) => {
     try {
-        const array = await sendmails.find({ fromEmail: req.params.userEmail }).distinct('emailId');
-    const result = []
-        await array.map(async (e) => {
-            const mail = await mails.findById(e);
-            result.push(mail)
-        });
-        return res.json({result:result})
+        const array = await sendmails.find({ fromEmail: 'amruthdd2017@gmail.com' }).distinct('emailId');
+        console.log(array);
+        
+        let result = await Promise.all(
+            array.map(async (e) => {
+                return mails.findById(e).then((r) => {
+                    return r;
+                })
+                .catch((err) => {
+                    console.log(err);
+                    })
+            
+            })
+        
+        )
+        console.log(result);
+        return res.json({ result: result})
+       
         
     } catch (err)  {
         next(err)

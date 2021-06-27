@@ -1,7 +1,9 @@
 .top-bar-main{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     padding-top: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
 
 }
 .search-main{

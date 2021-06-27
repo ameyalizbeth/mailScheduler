@@ -1,3 +1,13 @@
+.log-btn{
+    background: #5078FA;
+    color: white;
+    font-weight: 500;
+    border-radius: 8px;
+    width: 400px;
+    height: 38px;
+    border:none;
+    min-width: max-content;
+}
 .auth-bg{
   background-color: #5078FA;
   width: 100vw;
@@ -55,8 +65,7 @@
 }
 .title-main{
   font-size: 40px;
-  margin-bottom: 100px;
-  margin-top: -40px;
+  margin-bottom: 50px;
   color: #fff;
 }
 .title-main span{

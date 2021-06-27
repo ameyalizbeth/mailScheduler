@@ -112,7 +112,7 @@ if (access) {
                             </div>
                             <div className='my-2'>
                                 <button
-                                    className='btn mx-auto start-btn d-block col-6'
+                                    className='log-btn mx-auto d-block col-6'
                                     type="submit"
                                 >
                                     Create account

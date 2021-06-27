@@ -157,20 +157,8 @@ function ActivityModal(props) {
 
                         {schedulePlan!=="None"?<div>
                     <Inputs input={schedulePlan} second={sec} minute={min} hour={hr} day={dy} month={mnth} week={wk}/>
-                    <button
-                            className='btn start-btn col-6'
-                            onClick={handlePrint}
-                            type="submit"
-                        >
-                            Print
-                        </button>
-                    <button
-                            className='btn start-btn col-6'
-                            onClick={handleSchedule}
-                            type="submit"
-                        >
-                            Cancel
-                        </button></div>:""}
+                   
+                   </div>:""}
                         
                         <button
                             type='button'

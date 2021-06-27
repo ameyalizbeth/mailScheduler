@@ -60,7 +60,7 @@ exports.login = (req, res) => {
                             res.status(200).json({
                                 auth: true,
                                 token: token,
-                                usrEmail:username
+                                userEmail:username
                             });
                         } else {
                             res.json({
@@ -83,7 +83,6 @@ exports.login = (req, res) => {
 
 
 exports.schedule = async (req, res, next) => {
-<<<<<<< HEAD
     try {
     const { toEmail,  fromEmail, subject, body,html,schedule } = req.body
 const mail = await mails.create({ toEmail,  fromEmail, subject, body,schedule})
@@ -118,22 +117,12 @@ const mail = await mails.create({ toEmail,  fromEmail, subject, body})
 
     
 cron.schedule('* 11 * * *', async() => {
-=======
-const { toEmail,  fromEmail, subject, body, html } = req.body
-const mail = await mails.create({ toEmail,  fromEmail, subject, body})
-
-    
-cron.schedule('* 0 * * *', async() => {
->>>>>>> effe0808e6e2a9cd51c3e78942f8480d05f10393
   // Send e-mail
     let mailOptions = {
         to: toEmail,
         from: fromEmail,
         subject: subject,
-<<<<<<< HEAD
         text:body,
-=======
->>>>>>> effe0808e6e2a9cd51c3e78942f8480d05f10393
         html:  html
 
     }
